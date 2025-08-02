@@ -13,7 +13,7 @@
  *    t.ex. http://localhost:8080/ eller https://ditt-projektnamn.app.run/
  */
 
-export const CLIENT_ID = 'BYT-UT-MOT-DITT-EGNA-SPOTIFY-CLIENT-ID';
+export const CLIENT_ID = '622fd3e915664533b8425e4e0ad9615b';
 export const REDIRECT_URI = window.location.origin + window.location.pathname;
 
 // The scopes our app needs to function
