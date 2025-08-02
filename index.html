@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start-nedräkning med Spotify</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+        }
+      }
+    </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <main>
+        <div id="setup-instructions" style="display: none;">
+            <h2>Spotify-konfiguration krävs</h2>
+            <p>För att aktivera Spotify-integrationen måste appens ägare ange ett <strong>Client ID</strong> i källkoden.</p>
+            <ol>
+                <li>Gå till <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Spotify Developer Dashboard</a> och skapa en ny app.</li>
+                <li>Under appens inställningar (Edit Settings), lägg till denna sidas URL som en <strong>Redirect URI</strong>. Exempel: <code>http://localhost:8080/</code></li>
+                <li>Kopiera ditt <strong>Client ID</strong>.</li>
+                <li>Klistra in det i filen <code>spotify-config.ts</code> och ersätt platshållaren.</li>
+            </ol>
+            <p>Ladda om sidan när du har sparat ändringarna.</p>
+        </div>
+        <div id="countdown-display" aria-live="assertive"></div>
+        <button id="start-button">Starta nedräkning</button>
+        <button id="spotify-login-button" style="display: none;">Anslut Spotify</button>
+    </main>
+
+    <div id="spotify-player-bar" class="hidden">
+        <div class="spotify-track-info">
+            <img id="spotify-album-art" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Album Art">
+            <div class="spotify-track-details">
+                <div id="spotify-track-name">Ingen låt spelas</div>
+                <div id="spotify-track-artist"></div>
+            </div>
+        </div>
+        <div class="spotify-player-controls">
+            <button id="spotify-prev-button" aria-label="Föregående låt">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M220-240v-480h80v480h-80Zm440-240-280-160v320L660-480Zm0 114L453-240H380v-480h73l207 126v228Zm-40-114Zm0 0Z"/></svg>
+            </button>
+            <button id="spotify-play-pause-button" aria-label="Spela/Pausa">
+                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="M320-200v-560l440 280-440 280Z"/></svg>
+                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36" style="display:none;"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Z"/></svg>
+            </button>
+            <button id="spotify-next-button" aria-label="Nästa låt">
+                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M660-240v-480h80v480h-80Zm-440 0v-480l280 160v-320l-280 160Zm40 114v-228L507-480 300-366v228h73l207-126-207-126H300v480h73l207-126v228Z"/></svg>
+            </button>
+        </div>
+        <div class="spotify-volume-controls">
+             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M560-120v-80q92-26 156-96.5T780-480q0-82-64-152.5T560-720v-80q124 28 202 125.5T840-480q0-111-78-208.5T560-800ZM80-400v-160h160l200-200v720L240-400H80Zm400 108V-668l-144 144H160v160h176L480-300v8Z"/></svg>
+            <input type="range" id="spotify-volume-slider" min="0" max="1" step="0.01" value="0.5" aria-label="Volym">
+            <button id="spotify-logout-button" aria-label="Logga ut från Spotify">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+            </button>
+        </div>
+    </div>
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
